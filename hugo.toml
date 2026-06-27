@@ -1,0 +1,9 @@
+baseURL = "https://fryblog.vercel.app/"
+languageCode = "zh-cn"
+title = "我的博客"
+theme = "PaperMod"
+
+[params]
+  showReadingTime = true
+  showShareButtons = true
+  showToc = true
