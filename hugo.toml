@@ -1,5 +1,5 @@
 baseURL = "https://fry.l2.ink/"
-languageCode = "zh-cn"
+locale = "zh-cn"
 title = "Fry's blog"
 description = "一个记录灵感的地方"
 theme = "PaperMod"
@@ -8,3 +8,26 @@ theme = "PaperMod"
   showReadingTime = true
   showShareButtons = true
   showToc = true
+  ShowSearch = true
+    [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/Fry00001"
+
+  [menu]
+  [[menu.main]]
+    identifier = "posts"
+    name = "文章"
+    url = "/posts/"
+    weight = 10
+
+  [[menu.main]]
+    identifier = "tags"
+    name = "标签"
+    url = "/tags/"
+    weight = 20
+
+  [[menu.main]]
+    identifier = "about"
+    name = "关于本站"
+    url = "/about/"
+    weight = 30
