@@ -9,7 +9,8 @@ theme = "PaperMod"
   showShareButtons = true
   showToc = true
   ShowSearch = true
-    [[params.socialIcons]]
+
+[[params.socialIcons]]
     name = "github"
     url = "https://github.com/Fry00001"
 
