@@ -4,6 +4,9 @@ title = "Fry's blog"
 description = "一个记录灵感的地方"
 theme = "PaperMod"
 
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
 [params]
   showReadingTime = true
   showShareButtons = true
