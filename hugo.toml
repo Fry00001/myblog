@@ -18,7 +18,11 @@ theme = "PaperMod"
     name = "github"
     url = "https://github.com/Fry00001"
 
-  [menu]
+[[params.socialIcons]]
+    name = "bilibili"
+    url = "https://space.bilibili.com/1429298202"
+
+[menu]
   [[menu.main]]
     identifier = "posts"
     name = "文章"
