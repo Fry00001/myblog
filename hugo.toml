@@ -12,6 +12,7 @@ theme = "PaperMod"
   showShareButtons = true
   showToc = true
   ShowSearch = true
+  customCSS = ["css/custom.css"]
 
 [[params.socialIcons]]
     name = "github"
