@@ -8,37 +8,42 @@ body {
   padding: 0 1rem;
 }
 
-/* 搜索框黑色主题 */
+/* 强制黑色主题（使用更具体的选择器） */
 :root {
   --pagefind-ui-scale: 1;
-  --pagefind-ui-primary: #eeeeee;
-  --pagefind-ui-text: #cccccc;
-  --pagefind-ui-background: #1e1e1e;
-  --pagefind-ui-border: #444444;
-  --pagefind-ui-tag: #333333;
-  --pagefind-ui-border-width: 1px;
-  --pagefind-ui-border-radius: 8px;
-  --pagefind-ui-font: "Microsoft YaHei", sans-serif;
+  --pagefind-ui-primary: #eeeeee !important;
+  --pagefind-ui-text: #cccccc !important;
+  --pagefind-ui-background: #1e1e1e !important;
+  --pagefind-ui-border: #444444 !important;
+  --pagefind-ui-tag: #333333 !important;
+  --pagefind-ui-border-width: 1px !important;
+  --pagefind-ui-border-radius: 8px !important;
+  --pagefind-ui-font: "Microsoft YaHei", sans-serif !important;
 }
 
+/* 直接修改输入框背景 */
 #search .pagefind-ui__search-input {
-  background-color: #2a2a2a;
-  color: #ffffff;
-  border: 1px solid var(--pagefind-ui-border);
+  background-color: #2a2a2a !important;
+  color: #ffffff !important;
+  border: 1px solid var(--pagefind-ui-border) !important;
 }
 
 #search .pagefind-ui__search-input::placeholder {
-  color: #888888;
+  color: #888888 !important;
 }
 
+/* 搜索结果标题与摘要 */
 #search .pagefind-ui__result-title {
-  color: #ffffff;
+  color: #ffffff !important;
 }
-
 #search .pagefind-ui__result-excerpt {
-  color: #aaaaaa;
+  color: #aaaaaa !important;
+}
+#search .pagefind-ui__result-link {
+  color: #80b4ff !important;
 }
 
-#search .pagefind-ui__result-link {
-  color: #80b4ff;
+/* 搜索结果面板背景 */
+#search .pagefind-ui__results {
+  background-color: #1e1e1e !important;
 }
