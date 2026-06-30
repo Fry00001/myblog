@@ -1,10 +1,44 @@
-/* 可以暂时留空，或写简单规则 */
 body {
-    font-family: "Microsoft YaHei", sans-serif;
-  }
+  font-family: "Microsoft YaHei", sans-serif;
+}
 
-  #search {
-    max-width: 720px;
-    margin: 1.5rem auto;
-    padding: 0 1rem;
-  }
+#search {
+  max-width: 720px;
+  margin: 1.5rem auto;
+  padding: 0 1rem;
+}
+
+/* 搜索框黑色主题 */
+:root {
+  --pagefind-ui-scale: 1;
+  --pagefind-ui-primary: #eeeeee;
+  --pagefind-ui-text: #cccccc;
+  --pagefind-ui-background: #1e1e1e;
+  --pagefind-ui-border: #444444;
+  --pagefind-ui-tag: #333333;
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-border-radius: 8px;
+  --pagefind-ui-font: "Microsoft YaHei", sans-serif;
+}
+
+#search .pagefind-ui__search-input {
+  background-color: #2a2a2a;
+  color: #ffffff;
+  border: 1px solid var(--pagefind-ui-border);
+}
+
+#search .pagefind-ui__search-input::placeholder {
+  color: #888888;
+}
+
+#search .pagefind-ui__result-title {
+  color: #ffffff;
+}
+
+#search .pagefind-ui__result-excerpt {
+  color: #aaaaaa;
+}
+
+#search .pagefind-ui__result-link {
+  color: #80b4ff;
+}
