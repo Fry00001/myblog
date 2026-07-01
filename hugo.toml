@@ -41,5 +41,11 @@ theme = "PaperMod"
     url = "/about/"
     weight = 30
 
+  [[menu.main]]
+    identifier = "videos"
+    name = "B站视频"
+    url = "/videos/"
+    weight = 40
+
 [markup.goldmark.renderer]
   unsafe = true
