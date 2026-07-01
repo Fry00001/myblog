@@ -1,6 +1,6 @@
 baseURL = "https://fry.l2.ink/"
 locale = "zh-cn"
-title = "Fry's blog"
+title = "Fry's Website"
 description = "一个记录灵感的地方"
 theme = "PaperMod"
 
