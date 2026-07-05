@@ -1,0 +1,53 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+
+<div id="player" class="aplayer" style="position: fixed; top: 350px; left: 20px; width: 280px; z-index: 9999;"></div>
+
+<style>
+  #player.aplayer {
+    background: #1a1a1a !important;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  }
+  .aplayer .aplayer-info .aplayer-music,
+  .aplayer .aplayer-info .aplayer-controller .aplayer-time {
+    color: #ddd !important;
+  }
+  .aplayer .aplayer-list {
+    background: #1a1a1a !important;
+  }
+  .aplayer .aplayer-list ol li {
+    color: #ccc !important;
+  }
+  .aplayer .aplayer-list ol li:hover {
+    background: #333 !important;
+  }
+  .aplayer .aplayer-list ol li.aplayer-list-light {
+    background: #444 !important;
+    color: #fff !important;
+  }
+</style>
+
+<script>
+  const ap = new APlayer({
+    container: document.getElementById('player'),
+    fixed: false,
+    mini: false,
+    autoplay: false,
+    loop: 'all',
+    volume: 0.7,
+    listFolded: true,
+    audio: [
+      {
+        name: 'Lifeline',
+        artist: 'Zeraphym',
+        url: '/music/Lifeline-Zeraphym.mp3',
+      },
+      {
+        name: '窒 - Suffocating',
+        artist: 'UK',
+        url: '/music/窒-Suffocating.mp3',
+      }
+    ]
+  });
+</script>
