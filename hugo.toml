@@ -14,6 +14,20 @@ theme = "PaperMod"
   ShowSearch = true
   customCSS = ["css/custom.css"]
   enableMusic = true
+  comments = true
+
+[params.giscus]
+  repo = "Fry00001/myblog"
+  repoID = "R_kgDOTG9DKw"
+  category = "博客评论"
+  categoryID = "DIC_kwDOTG9DK84DAj7x"
+  mapping = "title"
+  strict = "1"
+  reactionsEnabled = "1"
+  emitMetadata = "0"
+  inputPosition = "top"
+  theme = "preferred_color_scheme"
+  lang = "zh-CN"
 
 [[params.socialIcons]]
     name = "github"
