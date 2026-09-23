@@ -11,3 +11,8 @@
     <img src="/images/bilibili-icon.png" alt="Bilibili" width="24" height="24" style="vertical-align: middle;">
   </a>
 </nav>
+
+{{- if .Site.Params.busuanzi.enable -}}
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<meta name="referrer" content="no-referrer-when-downgrade">
+{{- end -}}
