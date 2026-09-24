@@ -1,5 +1,5 @@
 {{ if site.Params.comments }}
-  {{ if .Params.comments | default true }}
+  {{ if ne .Params.comments false }}
     {{ if isset site.Params "giscus" }}
       <script src="https://giscus.app/client.js"
         data-repo="{{ site.Params.giscus.repo }}"
