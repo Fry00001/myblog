@@ -78,3 +78,84 @@ body {
 .video-item iframe {
   display: block;
 }
+
+
+/* 每日一言 */
+.daily-quote {
+  text-align: center;
+  padding: 1rem 1.5rem;
+  margin: 1rem auto 0.5rem;
+  max-width: 720px;
+  font-size: 1rem;
+  color: #aaa;
+  border-bottom: 1px dashed #333;
+}
+.daily-quote .quote-text {
+  font-style: italic;
+  color: #ddd;
+}
+.daily-quote .quote-author {
+  display: inline-block;
+  margin-left: 0.5rem;
+  font-size: 0.9rem;
+  color: #888;
+}
+
+/* ===== 导航栏：标题与菜单同行，每日一言独占一行并与文章对齐 ===== */
+header.header .header-nav {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+}
+
+/* 网站标题：第一行左侧 */
+header.header .header-nav .logo {
+  flex: 0 0 auto !important;
+  order: 1;
+}
+
+/* 菜单：第一行右侧 */
+header.header .header-nav #menu.menu {
+  flex: 0 0 auto !important;
+  order: 2;
+  margin-left: auto !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+}
+
+/* 每日一言：第二行独占，宽度与文章版心一致，左对齐 */
+header.header .header-nav .daily-quote {
+  order: 3;
+  flex: 1 1 100% !important;
+  width: 100% !important;
+  max-width: calc(var(--main-width, 720px) + var(--gap, 24px) * 2) !important;
+  margin: 0.2rem auto 0 auto !important;
+  padding: 0 var(--gap, 24px) !important;
+  box-sizing: border-box !important;
+  text-align: left !important;
+  white-space: normal !important;
+}
+
+/* 作者署名同行显示 */
+header.header .header-nav .daily-quote .quote-author {
+  display: inline-block !important;
+  margin-left: 0.5rem !important;
+  margin-top: 0 !important;
+  font-size: 0.9rem !important;
+  color: #888 !important;
+}
+
+/* 移动端保持一致 */
+@media (max-width: 768px) {
+  header.header .header-nav .daily-quote {
+    flex: 1 1 100% !important;
+    text-align: left !important;
+    margin: 0.2rem auto 0 auto !important;
+    padding: 0 1rem !important;
+  }
+}
