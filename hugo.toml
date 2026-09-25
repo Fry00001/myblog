@@ -16,9 +16,6 @@ theme = "PaperMod"
   enableMusic = true
   comments = true
 
-[params.busuanzi]
-  enable = true
-
 [params.giscus]
   repo = "Fry00001/myblog"
   repoID = "R_kgDOTG9DKw"

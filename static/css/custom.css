@@ -159,3 +159,8 @@ header.header .header-nav .daily-quote .quote-author {
     padding: 0 1rem !important;
   }
 }
+
+.view-count {
+  color: #888;
+  font-size: 0.9em;
+}

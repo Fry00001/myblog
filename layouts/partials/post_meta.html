@@ -12,9 +12,7 @@
 {{- $scratch.Add "meta" (slice (printf "<span>%s</span>" (i18n "words" .WordCount | default (printf "%d words" .WordCount)))) }}
 {{- end }}
 
-{{- if site.Params.busuanzi.enable -}}
-{{- $scratch.Add "meta" (slice (printf "<span class='busuanzi-page-view'>本文阅读 <span id='busuanzi_value_page_pv'></span> 次</span>")) }}
-{{- end }}
+{{- $scratch.Add "meta" (slice (printf "<span class='view-count'>—</span>")) }}
 
 {{- with ($scratch.Get "meta") }}
 {{- delimit . "&nbsp;·&nbsp;" | safeHTML -}}

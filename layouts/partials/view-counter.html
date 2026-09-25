@@ -1,0 +1,14 @@
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const path = window.location.pathname;
+    const viewEl = document.querySelector('.view-count');
+    fetch('https://fry.l2.ink/api/counter?path=' + encodeURIComponent(path), {
+      method: 'POST'
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (viewEl) viewEl.textContent = data.views || 0;
+    })
+    .catch(err => console.error('View counter error:', err));
+  });
+  </script>
