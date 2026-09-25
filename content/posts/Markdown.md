@@ -31,28 +31,30 @@ $(document).ready(function () {
 ### 标题
 文章内容较多时，可以用标题分段：
 
-##大标题
+\## 大标题
 
-###中标题
+\### 中标题
 
-####小标题
+\#### 小标题
 
 ### 粗体、斜体
-** 粗体文本 **
+\**粗体文本**
 
 *斜体文本*
 
-***粗斜体文本***
+`***粗斜体文本***`
 
 ### 链接
  常用链接：
 
- 文字链接 [SegmentFault](https://segmentfault.com)
- 网址链接 <https://segmentfault.com>
- 高级链接：
+ 文字链接 \[SegmentFault](https://segmentfault.com)
 
- 这个链接用 1 作为网址变量 [Google][1]
- 这个链接用 yahoo 作为网址变量 [Yahoo][yahoo]
+ 网址链接 <https://segmentfault.com>
+
+ 高级链接：
+ 
+ 这个链接用 1 作为网址变量 \[Google][1]
+ 这个链接用 yahoo 作为网址变量 \[Yahoo][yahoo]
  然后在文档的结尾为变量赋值（网址）
 
  [1]: http://www.google.com
@@ -123,10 +125,10 @@ $(document).ready(function () {
 ### 图片
 跟链接的方法区别在于前面加了个感叹号 !，这样是不是觉得好记多了呢？
 
-![图片名称](http://图片网址)
+`![图片名称](http://图片网址)`
 当然，你也可以像网址那样对图片网址使用变量
 
-这个链接用 1 作为网址变量 [Google][1].
+这个链接用 1 作为网址变量 \[Google][1].
 然后在文档的结尾位变量赋值（网址）
 
 [1]: http://www.google.com/logo.png
@@ -150,14 +152,14 @@ $(document).ready(function () {
 
 ## 高级技巧
 ### 行内 HTML 元素
-目前只支持部分段内 HTML 元素效果，包括 <kbd> <b> <i> <em> <sup> <sub> <br>：
+目前只支持部分段内 HTML 元素效果，包括`<kbd> <b> <i> <em> <sup> <sub> <br>`：
 
 键位显示
 
-使用 <kbd>Enter</kbd> 键换行
+使用 `<kbd>Enter</kbd> `键换行
 代码块
 
-使用 <pre></pre> 元素同样可以形成代码块
+使用 `<pre></pre> `元素同样可以形成代码块
 粗斜体
 
 <b>Markdown 在此处同样适用，如 **加粗**</b>
@@ -178,8 +180,9 @@ https://codepen.io/{{ name }}/pen/{{ id }}
 ### 脚注
 Markdown[^1] 可以提高排版效率，并将文本转换为 HTML[^html]
 
-[^1]: Markdown 是一种纯文本标记语言
-[^html]: HyperText Markup Language 超文本标记语言
+\[^1]: Markdown 是一种纯文本标记语言
+
+\[^html]: HyperText Markup Language 超文本标记语言
 
 ### 公式
 当你需要在编辑器中插入数学公式时，可以使用两个美元符 $$ 包裹 TeX 或 LaTeX 格式的数学公式来实现。提交后，问答和文章页会根据需要加载 Mathjax 对数学公式进行渲染。如：
