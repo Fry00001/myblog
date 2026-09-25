@@ -12,7 +12,7 @@
 {{- $scratch.Add "meta" (slice (printf "<span>%s</span>" (i18n "words" .WordCount | default (printf "%d words" .WordCount)))) }}
 {{- end }}
 
-{{- $scratch.Add "meta" (slice (printf "<span class='view-count'>—</span>")) }}
+{{- $scratch.Add "meta" (slice (printf "<span class='view-count'>已浏览 <span class='view-count-number'>—</span> 次</span>")) }}
 
 {{- with ($scratch.Get "meta") }}
 {{- delimit . "&nbsp;·&nbsp;" | safeHTML -}}

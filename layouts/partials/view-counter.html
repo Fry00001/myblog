@@ -1,7 +1,7 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const path = window.location.pathname;
-    const viewEl = document.querySelector('.view-count');
+    const viewEl = document.querySelector('.view-count-number');
     fetch('https://fry.l2.ink/api/counter?path=' + encodeURIComponent(path), {
       method: 'POST'
     })

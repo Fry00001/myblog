@@ -1,15 +1,15 @@
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      document.querySelectorAll('.post-entry').forEach(entry => {
-        const link = entry.querySelector('a.entry-link');
-        if (!link) return;
-        const path = new URL(link.href).pathname;
-        const viewEl = entry.querySelector('.view-count');
-        if (!viewEl) return;
-        fetch('https://fry.l2.ink/api/counter?path=' + encodeURIComponent(path))
-          .then(res => res.json())
-          .then(data => { viewEl.textContent = data.views || 0; })
-          .catch(() => { viewEl.textContent = '—'; });
-      });
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.post-entry').forEach(entry => {
+      const link = entry.querySelector('a.entry-link');
+      if (!link) return;
+      const path = new URL(link.href).pathname;
+      const viewEl = entry.querySelector('.view-count-number');
+      if (!viewEl) return;
+      fetch('https://fry.l2.ink/api/counter?path=' + encodeURIComponent(path))
+        .then(res => res.json())
+        .then(data => { viewEl.textContent = data.views || 0; })
+        .catch(() => { viewEl.textContent = '—'; });
     });
-    </script>
+  });
+  </script>
