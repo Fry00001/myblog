@@ -164,3 +164,25 @@ header.header .header-nav .daily-quote .quote-author {
   color: #888;
   font-size: 0.9em;
 }
+
+.footer-license {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #888;
+  margin-top: 1.5rem;
+  padding: 1rem 0;
+  border-top: 1px solid #333;
+  line-height: 1.6;
+}
+.footer-license img {
+  vertical-align: middle;
+  margin-bottom: 0.5rem;
+  opacity: 0.8;
+}
+.footer-license a {
+  color: #80b4ff;
+  text-decoration: none;
+}
+.footer-license a:hover {
+  text-decoration: underline;
+}
