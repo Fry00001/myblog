@@ -20,9 +20,12 @@ $(document).ready(function () {
 ```
 也可以使用 4 空格缩进，再贴上代码，实现相同的的效果：
 
+````
 ····def g(x):
 ····    yield from range(x, 0, -1)
 ····yield from range(x)
+````
+
 如你不需要代码高亮，可以用下面的方法禁用：
 
 ```nohighlight
@@ -47,18 +50,18 @@ $(document).ready(function () {
 ### 链接
  常用链接：
 
- 文字链接 \[SegmentFault](https://segmentfault.com)
+ 文字链接 \[网站名称](https://example.com)
 
- 网址链接 <https://segmentfault.com>
+ 网址链接 <https://example.com>
 
  高级链接：
  
- 这个链接用 1 作为网址变量 \[Google][1]
- 这个链接用 yahoo 作为网址变量 \[Yahoo][yahoo]
+ 这个链接用 1 作为网址变量 \[name][1]
+ 这个链接用 name 作为网址变量 \[name][name]
  然后在文档的结尾为变量赋值（网址）
 
- [1]: http://www.google.com
- [yahoo]: http://www.yahoo.com
+ [1]: https://example.com
+ [name]: https://example.com
 
 ### 列表
 无序列表
@@ -131,7 +134,7 @@ $(document).ready(function () {
 这个链接用 1 作为网址变量 \[Google][1].
 然后在文档的结尾位变量赋值（网址）
 
-[1]: http://www.google.com/logo.png
+[1]: http://www.example.com/logo.png
 
 ### 换行
 如果另起一行，只需在当前行结尾加 2 个空格：
@@ -173,9 +176,9 @@ $(document).ready(function () {
 ### 扩展
 支持 jsfiddle、gist、codepen，直接填写 URL，在其之后会自动添加预览点击会展开相关内容：
 
-https://jsfiddle.net/{{ name }}/{{ id }}/
-https://gist.github.com/{{ name }}/{{ id }}
-https://codepen.io/{{ name }}/pen/{{ id }}
+https://example.com/{{ name }}/{{ id }}/
+https://example.com/{{ name }}/{{ id }}
+https://example.com/{{ name }}/pen/{{ id }}
 
 ### 脚注
 Markdown[^1] 可以提高排版效率，并将文本转换为 HTML[^html]
