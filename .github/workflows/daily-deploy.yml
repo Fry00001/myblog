@@ -2,8 +2,7 @@ name: Daily Rebuild
 
 on:
   schedule:
-    # 每天北京时间 08:00 (UTC 00:00) 自动执行
-    - cron: '0 0 * * *'
+    - cron: '0 20 * * *'   # 每天 UTC 20:00（北京时间次日 04:00）
   workflow_dispatch: # 允许在 GitHub 页面上手动触发
 
 jobs:
