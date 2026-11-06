@@ -1,6 +1,8 @@
 <link rel="stylesheet" href="/css/custom.css">
 {{ partial "search.html" . }}
 <div id="search"></div>
+
+<div id="social-icons-wrapper" style="width: 100%; display: flex; justify-content: flex-end; padding-right: 0; box-sizing: border-box; margin-top: 1rem;">
 <nav class="social-icons">
   <a href="https://github.com/Fry00001" target="_blank" rel="noopener noreferrer" title="GitHub">
     <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -10,15 +12,23 @@
   <a href="https://space.bilibili.com/1429298202" target="_blank" rel="noopener noreferrer" title="Bilibili">
     <img src="/images/bilibili-icon.png" alt="Bilibili" width="24" height="24" style="vertical-align: middle;">
   </a>
+  <a href="https://www.xiaohongshu.com/user/profile/68766273000000001d02597d" target="_blank" rel="noopener noreferrer" title="小红书">
+    <img src="/images/xiaohongshu-icon.png" alt="小红书" width="24" height="24" style="vertical-align: middle;">
+  </a>
 </nav>
+</div>
 
 {{ partial "daily-quote.html" . }}
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    var headerNav = document.querySelector('.header-nav');
+    var socialWrapper = document.querySelector('#social-icons-wrapper');
     var quote = document.querySelector('.daily-quote');
-    var logo = document.querySelector('.logo');
-    if (quote && logo) {
-      logo.after(quote);
+    
+    // 直接将它们追加到导航栏内部，利用 CSS 的 order 属性排序
+    if (headerNav && socialWrapper && quote) {
+      headerNav.appendChild(socialWrapper);
+      headerNav.appendChild(quote);
     }
   });
 </script>

@@ -49,8 +49,8 @@ body {
 }
 
 .social-icons {
-  display: flex;
-  justify-content: center;
+  display: flex !important;
+  justify-content: flex-end !important; /* 关键：靠右对齐 */
   gap: 15px;
   margin-top: 0.5rem;
   margin-bottom: 1rem;
@@ -128,9 +128,15 @@ header.header .header-nav #menu.menu {
   justify-content: flex-end !important;
 }
 
-/* 每日一言：第二行独占，宽度与文章版心一致，左对齐 */
-header.header .header-nav .daily-quote {
+/* 社交图标：第二行独占，靠右 */
+header.header .header-nav #social-icons-wrapper {
   order: 3;
+  flex: 1 1 100% !important;
+}
+
+/* 每日一言 */
+header.header .header-nav .daily-quote {
+  order: 4;
   flex: 1 1 100% !important;
   width: 100% !important;
   max-width: calc(var(--main-width, 720px) + var(--gap, 24px) * 2) !important;
@@ -166,23 +172,34 @@ header.header .header-nav .daily-quote .quote-author {
 }
 
 .footer-license {
+  display: flex;
+  flex-direction: column; /* 垂直排列 */
+  align-items: center;    /* 水平居中 */
   text-align: center;
   font-size: 0.85rem;
   color: #888;
   margin-top: 1.5rem;
-  padding: 1rem 0;
+  padding: 1.5rem 0;
   border-top: 1px solid #333;
-  line-height: 1.6;
+  width: 100%;
 }
-.footer-license img {
-  vertical-align: middle;
-  margin-bottom: 0.5rem;
-  opacity: 0.8;
+
+.footer-license .license-icon img {
+  height: 31px;
+  margin-bottom: 0.8rem;
+  opacity: 0.7;
+  transition: opacity 0.3s;
 }
-.footer-license a {
+
+.footer-license .license-icon:hover img {
+  opacity: 1;
+}
+
+.footer-license .license-text a {
   color: #80b4ff;
   text-decoration: none;
 }
-.footer-license a:hover {
+
+.footer-license .license-text a:hover {
   text-decoration: underline;
 }
