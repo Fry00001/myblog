@@ -15,6 +15,7 @@ theme = "PaperMod"
   customCSS = ["css/custom.css"]
   enableMusic = true
   comments = true
+  defaultTheme = "dark"
 
 [params.giscus]
   repo = "Fry00001/myblog"
