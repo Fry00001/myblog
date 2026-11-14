@@ -1,0 +1,161 @@
+{{- /* PJAX：点站内链接只替换 <main class="main">，不整页刷新。
+       目的：播放器 APlayer 与 <audio>（都在 main 之外）全程不被销毁，音乐不中断。 */ -}}
+<style>
+  #pjax-progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:2147483647;
+    background:#4a9eff;opacity:0;pointer-events:none;
+    transition:width .25s ease,opacity .25s ease;}
+  #pjax-progress.pjax-on{opacity:1;}
+</style>
+<script>
+(function () {
+  'use strict';
+  if (!window.fetch || !window.history || !history.pushState) return;
+
+  var MAIN = 'main.main';
+  var SKIP = /\.(mp3|mp4|m4a|wav|flac|ogg|avi|mov|webm|png|jpe?g|gif|svg|webp|ico|bmp|pdf|zip|rar|7z|gz|tar|xml|json|css|js|txt|woff2?|ttf|otf)$/i;
+  var loading = false;
+  var currentPath = location.pathname + location.search;
+
+  function bar() {
+    var b = document.getElementById('pjax-progress');
+    if (!b) { b = document.createElement('div'); b.id = 'pjax-progress'; document.body.appendChild(b); }
+    return b;
+  }
+  function barStart() {
+    var b = bar();
+    b.style.width = '0';
+    b.classList.add('pjax-on');
+    requestAnimationFrame(function () {
+      b.style.width = '35%';
+      setTimeout(function () { b.style.width = '75%'; }, 150);
+    });
+  }
+  function barEnd() {
+    var b = bar();
+    b.style.width = '100%';
+    setTimeout(function () { b.classList.remove('pjax-on'); b.style.width = '0'; }, 220);
+  }
+
+  /* 这个链接该不该由 pjax 接管 */
+  function pick(link, ev) {
+    if (!link || ev.defaultPrevented) return null;
+    if (ev.button !== 0 || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return null;
+    if (link.hasAttribute('download') || link.hasAttribute('data-pjax-ignore')) return null;
+    var t = link.getAttribute('target');
+    if (t && t !== '_self') return null;
+    var href = link.getAttribute('href');
+    if (!href || href.charAt(0) === '#' || /^(mailto:|tel:|javascript:|blob:|data:)/i.test(href)) return null;
+    var u;
+    try { u = new URL(link.href, location.href); } catch (e) { return null; }
+    if (u.origin !== location.origin) return null;
+    if (SKIP.test(u.pathname)) return null;
+    return u;
+  }
+
+  /* 新内容里的 script 必须重插才会执行（giscus 评论等靠这个） */
+  function rerunScripts(root) {
+    Array.prototype.forEach.call(root.querySelectorAll('script'), function (old) {
+      var s = document.createElement('script');
+      Array.prototype.forEach.call(old.attributes, function (a) { s.setAttribute(a.name, a.value); });
+      s.text = old.textContent;
+      old.parentNode.replaceChild(s, old);
+    });
+  }
+
+  /* 换页后需要手动重跑的东西 */
+  function reinit() {
+    /* 浏览量脚本写在 head 里、靠 DOMContentLoaded 触发，换页后不会自己跑 */
+    if (typeof window.__initViewCounts === 'function') {
+      try { window.__initViewCounts(); } catch (e) {}
+    }
+    /* 页内锚点：主题脚本只给首屏的 a[href^="#"] 绑过事件 */
+    Array.prototype.forEach.call(document.querySelectorAll(MAIN + ' a[href^="#"]'), function (a) {
+      if (a.__pjaxAnchor) return;
+      a.__pjaxAnchor = true;
+      a.addEventListener('click', function (ev) {
+        var id = this.getAttribute('href').slice(1);
+        var el = id ? document.getElementById(decodeURIComponent(id)) : null;
+        if (!el) return;
+        ev.preventDefault();
+        el.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      });
+    });
+  }
+
+  function go(url, push, y) {
+    if (loading) return;
+    loading = true;
+    barStart();
+    fetch(url.href, { credentials: 'same-origin', headers: { 'X-PJAX': '1' } })
+      .then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.text();
+      })
+      .then(function (html) {
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        var next = doc.querySelector(MAIN);
+        var cur = document.querySelector(MAIN);
+        if (!next || !cur) throw new Error('no main container');
+        cur.innerHTML = next.innerHTML;
+        document.body.className = doc.body.className || '';
+        if (doc.title) document.title = doc.title;
+        var nd = doc.querySelector('meta[name="description"]');
+        var cd = document.querySelector('meta[name="description"]');
+        if (nd && cd) cd.setAttribute('content', nd.getAttribute('content') || '');
+        if (push !== false) history.pushState({ pjax: 1, y: 0 }, '', url.href);
+        currentPath = url.pathname + url.search;
+        rerunScripts(cur);
+        reinit();
+        window.scrollTo(0, y || 0);
+      })
+      .catch(function () {
+        /* 兜底：拿不到新页就整页跳转（音乐会被打断，但不会白屏） */
+        window.location.href = url.href;
+      })
+      .then(function () { loading = false; barEnd(); });
+  }
+
+  document.addEventListener('click', function (ev) {
+    var link = ev.target && ev.target.closest ? ev.target.closest('a') : null;
+    var u = pick(link, ev);
+    if (!u) return;
+    ev.preventDefault();
+    /* 点的是当前页自己的链接（站名 logo、当前栏目的菜单项）：绝不整页刷新，
+       否则播放器会被重新加载、音乐从头开始。只做滚动，不换内容。 */
+    if (u.pathname === location.pathname && u.search === location.search) {
+      if (u.hash) {
+        var target = null;
+        try { target = document.getElementById(decodeURIComponent(u.hash.slice(1))); } catch (e) {}
+        if (target) {
+          target.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+          return;
+        }
+      }
+      window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      return;
+    }
+    go(u, true, 0);
+  });
+
+  window.addEventListener('popstate', function (ev) {
+    var nowPath = location.pathname + location.search;
+    if (nowPath === currentPath) return;          /* 同页锚点，浏览器自己处理 */
+    var st = ev.state || {};
+    go(new URL(location.href), false, st.y || 0);
+  });
+
+  /* 记住滚动位置，前进 / 后退时还原 */
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      var st = history.state || {};
+      if (st.pjax) history.replaceState({ pjax: 1, y: window.scrollY }, '', location.href);
+      ticking = false;
+    });
+  }, { passive: true });
+
+  history.replaceState({ pjax: 1, y: window.scrollY }, '', location.href);
+})();
+</script>

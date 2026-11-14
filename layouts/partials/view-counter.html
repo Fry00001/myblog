@@ -1,14 +1,25 @@
+{{- /* 浏览量：一套逻辑同时管文章页（单个计数）和列表页（每篇一个计数）。
+       暴露 window.__initViewCounts 给 pjax 在换页后重跑（脚本在 head，换页时不会重载）。 */ -}}
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const path = window.location.pathname;
-    const viewEl = document.querySelector('.view-count-number');
-    fetch('https://fry.l2.ink/api/counter?path=' + encodeURIComponent(path), {
-      method: 'POST'
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (viewEl) viewEl.textContent = data.views || 0;
-    })
-    .catch(err => console.error('View counter error:', err));
-  });
-  </script>
+  (function () {
+    function initViewCounts() {
+      var nodes = document.querySelectorAll('.view-count-number');
+      Array.prototype.forEach.call(nodes, function (el) {
+        var box = el.closest('.post-single, .first-entry, .post-entry, article');
+        var link = box ? box.querySelector('a.entry-link') : null;
+        var path = link ? new URL(link.href, location.href).pathname : (location.pathname + location.search);
+        var isArticle = !link;   /* 没有列表链接 = 当前正在看这篇文章，计入一次浏览 */
+        fetch('https://fry.l2.ink/api/counter?path=' + encodeURIComponent(path), isArticle ? { method: 'POST' } : {})
+          .then(function (r) { return r.json(); })
+          .then(function (d) { el.textContent = Number(d.views) || 0; })
+          .catch(function () { if (!el.textContent || el.textContent === '—') el.textContent = '—'; });
+      });
+    }
+    window.__initViewCounts = initViewCounts;
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initViewCounts);
+    } else {
+      initViewCounts();
+    }
+  })();
+</script>

@@ -33,5 +33,4 @@
   });
 </script>
 
-{{ if .IsPage }}{{ partial "view-counter.html" . }}{{ end }}
-{{ if not .IsPage }}{{ partial "view-counter-list.html" . }}{{ end }}
+{{ partial "view-counter.html" . }}
