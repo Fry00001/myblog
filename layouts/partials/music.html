@@ -1,58 +1,161 @@
 <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.css">
 <script src="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
 
-<div id="player" class="aplayer" style="position: fixed; top: 350px; left: 20px; width: 280px; z-index: 9999;"></div>
+<div id="player" class="aplayer"></div>
 
 <style>
-  #player.aplayer {
-    background: #1a1a1a !important;
-    border-radius: 6px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  /* ===== 1. 最外层容器：锁定位置和宽度 ===== */
+  .aplayer.aplayer-fixed {
+    bottom: 20px !important;
+    left: 20px !important;
+    right: auto !important;
+    width: 420px !important; 
+    max-width: 420px !important;
+    z-index: 9999;
+    background: transparent !important; 
+    box-shadow: none !important;
+    overflow: visible !important;
   }
-  .aplayer .aplayer-info .aplayer-music,
-  .aplayer .aplayer-info .aplayer-controller .aplayer-time {
-    color: #ddd !important;
+
+  /* 隐藏歌词层 */
+  .aplayer .aplayer-lrc { display: none !important; }
+
+  /* ===== 2. 主体面板（展开时） ===== */
+  .aplayer.aplayer-fixed .aplayer-body {
+    width: 420px !important; 
+    background: #1c1c1c !important; 
+    border-radius: 8px !important;
+    border: 1px solid #333 !important;
+    /* 默认展开时底部不需要下边框，避免和列表叠在一起变粗 */
+    border-bottom: none !important; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.8) !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
-  .aplayer .aplayer-list {
-    background: #1a1a1a !important;
+
+  /* 强制所有子元素透明无边框 */
+  .aplayer .aplayer-info,
+  .aplayer .aplayer-controller,
+  .aplayer .aplayer-pic {
+    background-color: #1c1c1c !important;
+    border: none !important;
   }
+
+  .aplayer .aplayer-info {
+    padding: 10px 15px !important;
+    margin-left: 80px !important;
+  }
+
+  /* ===== 3. 播放列表（修复黑线） ===== */
+  .aplayer.aplayer-fixed .aplayer-list {
+    width: 420px !important; 
+    background: #1c1c1c !important;
+    border-radius: 0 0 8px 8px !important;
+    border: 1px solid #333 !important;
+    border-top: none !important;
+    margin-top: 0 !important; /* 去掉负数 margin */
+    padding-bottom: 0 !important;
+    /* 取消列表自带的底部边框，统一由外层控制 */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.8) !important;
+  }
+  
+  .aplayer .aplayer-list ol {
+    border-radius: 0 0 8px 8px !important;
+  }
+
   .aplayer .aplayer-list ol li {
+    border-top: 1px solid #333 !important;
     color: #ccc !important;
+    height: 36px !important;
+    line-height: 36px !important;
   }
-  .aplayer .aplayer-list ol li:hover {
-    background: #333 !important;
+  .aplayer .aplayer-list ol li:hover { background: #2a2a2a !important; }
+  .aplayer .aplayer-list ol li.aplayer-list-light { background: #333 !important; color: #80b4ff !important; }
+
+  /* ===== 4. 文字、图标、进度条颜色 ===== */
+  .aplayer .aplayer-title { color: #fff !important; }
+  .aplayer .aplayer-author { color: #888 !important; }
+  .aplayer .aplayer-time { color: #888 !important; }
+  .aplayer .aplayer-icons .aplayer-icon path { fill: #888 !important; }
+
+  .aplayer .aplayer-info .aplayer-controller .aplayer-bar-wrap .aplayer-bar { background: #333 !important; }
+  .aplayer .aplayer-info .aplayer-controller .aplayer-bar-wrap .aplayer-bar .aplayer-played { background: #80b4ff !important; }
+  .aplayer .aplayer-info .aplayer-controller .aplayer-bar-wrap .aplayer-bar .aplayer-played .aplayer-thumb { background: #80b4ff !important; }
+
+  /* ========================================================= */
+  /* ===== 5. 折叠（迷你）状态：彻底隐藏多余元素 ===== */
+  /* ========================================================= */
+  
+  /* 折叠时隐藏列表，防止底部漏线 */
+  .aplayer.aplayer-fixed.aplayer-mini .aplayer-list {
+    display: none !important; 
   }
-  .aplayer .aplayer-list ol li.aplayer-list-light {
-    background: #444 !important;
-    color: #fff !important;
+
+  /* 折叠时的整体外框 */
+  .aplayer.aplayer-fixed.aplayer-mini .aplayer-body {
+    width: 80px !important;
+    height: 80px !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.8) !important;
+    border: 1px solid #333 !important; /* 恢复完整边框 */
+  }
+
+  /* 折叠时的左侧封面 */
+  .aplayer.aplayer-fixed.aplayer-mini .aplayer-pic {
+    width: 80px !important;
+    height: 80px !important;
+    border-radius: 12px !important;
+  }
+
+  /* 折叠时的右侧展开按钮 */
+  .aplayer.aplayer-fixed.aplayer-mini .aplayer-mini-icon {
+    background: rgba(28, 28, 28, 0.9) !important; 
+    border-left: 1px solid #333 !important; 
+    width: 24px !important;
+    height: 100% !important;
+    right: 0 !important;
+    top: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 0 12px 12px 0 !important; 
+  }
+  .aplayer.aplayer-fixed.aplayer-mini .aplayer-mini-icon path {
+    fill: #fff !important;
   }
 </style>
 
 <script>
-  const ap = new APlayer({
-    container: document.getElementById('player'),
-    fixed: false,
-    mini: false,
-    autoplay: false,
-    loop: 'all',
-    volume: 0.7,
-    listFolded: true,
-    audio: [
-      {
-        name: 'Lifeline',
-        artist: 'Zeraphym',
-        url: '/music/Lifeline-Zeraphym.mp3',
-      },
-      {
-        name: '窒 - Suffocating',
-        artist: 'UK',
-        url: '/music/窒-Suffocating.mp3',
-      },
-      {
-        name: 'Megamix 2',
-        artist: 'Plum - Melodic Artist',
-        url: '/music/Megamix-2.mp3',
-      }
-    ]
-  });
+  if (!window.ap) {
+    window.ap = new APlayer({
+      container: document.getElementById('player'),
+      fixed: true,        
+      mini: true,         
+      autoplay: false,    
+      loop: 'all',
+      volume: 0.7,
+      listFolded: true,   
+      audio: [
+        {
+          name: 'Lifeline',
+          artist: 'Zeraphym',
+          url: '/music/Lifeline-Zeraphym.mp3',
+          cover: '/images/bilibili-icon.png' 
+        },
+        {
+          name: '窒 - Suffocating',
+          artist: 'UK',
+          url: '/music/窒-Suffocating.mp3',
+          cover: '/images/bilibili-icon.png'
+        },
+        {
+          name: 'Megamix 2',
+          artist: 'Plum - Melodic Artist',
+          url: '/music/Megamix-2.mp3',
+          cover: '/images/bilibili-icon.png'
+        }
+      ]
+    });
+  }
 </script>
